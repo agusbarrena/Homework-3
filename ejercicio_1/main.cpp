@@ -1,37 +1,38 @@
 #include <iostream>
 #include <memory>
 #include "funciones.h"
+#include <vector>
 
 int main(){
     //datos
-    std::shared_ptr<Posicion> posicion = std::make_shared<Posicion>(-34.6f, -58.4f, 950.0f, 5.3);
-    std::shared_ptr<Presion> presion = std::make_shared<Presion>(101.3f, 5.8f, 6.1f);
+    auto pos = std::make_shared<Posicion>(-34.6f, -58.4f, 950.0f, 5.3f);
+    auto pres = std::make_shared<Presion>(101.3f, 5.8f, 6.1f);
+    SaveFlightData datos(pos, pres);
 
-    SaveFlightData original(posicion, presion);
-
-    //serializar todas las mediciones del archivo
-    std::ofstream out("mediciones.dat", std::ios::binary);
-        if(out.is_open()){
-            original.serializar(out);
-            out.close();
-        }
+    //mustro informacion antes de serializar
+    std::cout<<"Antes de serializar: \n";
+    datos.imprimir();
     
+    //serializacion: serializo todos los datos a un archivo
+    std::ofstream out("vuelo.dat", std::ios::binary);
+    if(out.is_open()){
+        datos.serializar(out);
+        out.close();
+    }
 
-    //deserializar todas las mediciones desde el archivo
+    //deserializacion : creo objetos vacios para deserializar desde el archivo
+    auto posDes = std::make_shared<Posicion>(0.0f, -0.0f, 0.0f, 0.0f);
+    auto presDes = std::make_shared<Presion>(0.0f, 0.0f, 0.0f);
+    SaveFlightData datosDes(posDes, presDes);
+    std::ifstream in("vuelo.dat", std::ios::binary);
+    if(in.is_open()){
+        datosDes.deserializar(in);
+        in.close();    
+    }
 
-    SaveFlightData cargado;
-    std::ifstream in("mediciones.dat", std::ios::binary);
-        if(in.is_open()){
-            cargado.deserializar(in);
-            in.close();
-        }
-    
+    //muestra la informacion obtenida
+    std::cout<< "\nDespues de deserializar: \n";
+    datosDes.imprimir();
 
-    //Imprimo los resultados
-    std::cout<< "Datos originales: \n";
-    original.imprimir();
-
-    std::cout<< "Datos cargados: \n";
-    cargado.imprimir();
-
+    return 0;
 }

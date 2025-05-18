@@ -15,11 +15,11 @@ void MedicionBase::deserializar(std::ifstream& in){
 }
 
 float MedicionBase::getTiempo() const{
-    return *tiempoMedicion; //fijarse si quiza puede retornar nullptr
+    return *tiempoMedicion; 
 }
 
 void MedicionBase::imprimir() const{
-    std::cout<<"Tiempo en que se tomo la medicion:" << *tiempoMedicion << std::endl;
+    std::cout<<"Tiempo en que se tomo la medicion: " << getTiempo() << " minutos"<< std::endl;
 }
 
 Presion::Presion(float p, float q, float t) : presionEstatica(p), presionDinamica(q), MedicionBase(t) {}
@@ -81,3 +81,8 @@ void SaveFlightData::imprimir() const{
     if(p) p->imprimir();
     if(q) q->imprimir();
 }
+
+//Explicacion de por que no se necesita hacer std::move:
+//El unique_ptr no se copia, sino que se serializa su contenido y luego se reconstruye con make_unique en el proceso de deserializacion
+//Las clases derivadas Presion y Posicion, deserializan primero los datos de la clase base(MedicionBase) y luego sus propios miembros.La clase SaveFlight data, deserializa primero los datos de Posicion y Presion. Se pasan  como shared_ptr porque ambas tienen una relacion de agregacion con esta clase.
+//Por lo tanto, no se necesita usar std::move porque no se transfiere el ownership de objetos.En lugar de eso se crea un nuevo objeto a partir de los datos deserializados.

@@ -16,13 +16,15 @@ public:
     void deserializar(std::ifstream& in) override;
     float getTiempo() const;
     virtual void imprimir() const; 
+    virtual ~MedicionBase() = default;
 protected:
    std::unique_ptr<float> tiempoMedicion;
 };
 
 class Presion : public MedicionBase{
 public:
-    Presion(float p, float q, float t);;
+    Presion() : MedicionBase(0.0f), presionEstatica(0.0f), presionDinamica(0.0f) {}
+    Presion(float p, float q, float t);
     float presionEstatica;//p
     float presionDinamica;//q
     void serializar(std::ofstream& out) const override;
@@ -32,6 +34,7 @@ public:
 
 class Posicion: public MedicionBase{
 public:
+    Posicion() : MedicionBase(0.0f), latitud(0), longitud(0), altitud(0) {}
     Posicion(float lat, float lon, float alt, float t);
     float latitud;
     float longitud;
@@ -43,7 +46,7 @@ public:
 
 class SaveFlightData{
 public:
-SaveFlightData() = default; //para poder crear objetos vacios y deserializar desde archivo
+SaveFlightData() = default;
 SaveFlightData(const std::shared_ptr<Posicion>& p, const std::shared_ptr<Presion>& q);
 std::shared_ptr<Posicion> p;
 std::shared_ptr<Presion> q;
