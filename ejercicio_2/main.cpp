@@ -2,17 +2,21 @@
 #include "funciones.h"
 
 int main(){
-    Punto<int> p(3,4);
-    std::cout<< "Area del punto: "<< ProcesadorFigura<Punto<int>>::calcularArea(p) <<std::endl;
+    Punto p(3.0f,4.0f);
+    ProcesadorFigura<Punto> procesadorPunto;
+    std::cout<< "Area del Punto: "<< procesadorPunto.calcularArea(p) <<std::endl;
 
-    Circulo<int,float> c(p, 3.5f);
-    std::cout<< "Area del Circulo: "<< ProcesadorFigura<Circulo<int,float>>::calcularArea(c) <<std::endl;
+    Circulo c(p, 3.5f);
+    ProcesadorFigura<Circulo> procesadorCirculo;
+    std::cout<< "Area del Circulo: "<< procesadorCirculo.calcularArea(c) <<std::endl;
 
-    Elipse<int,double> e(p, 2.26, 7.95);
-    std::cout<<"Area de la Elipse: "<< ProcesadorFigura<Elipse<int,double>>::calcularArea(e) <<std::endl;
+    Elipse e(p, 2.26f, 7.95f);
+    ProcesadorFigura<Elipse> procesadorElipse;
+    std::cout<<"Area de la Elipse: "<< procesadorElipse.calcularArea(e) <<std::endl;
 
-    Rectangulo<int,int> r(p, 5, 8);
-    std::cout<<"Area del rectangulo: "<< ProcesadorFigura<Rectangulo<int,int>>::calcularArea(r)<<std::endl;
+    Rectangulo r(p, 5.0f, 8.0f);
+    ProcesadorFigura<Rectangulo> procesadorRectangulo;
+    std::cout<<"Area del Rectangulo: "<< procesadorRectangulo.calcularArea(r)<<std::endl;
 
     return 0;
 }
