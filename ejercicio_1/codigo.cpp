@@ -22,6 +22,7 @@ void MedicionBase::imprimir() const{
     std::cout<<"Tiempo en que se tomo la medicion: " << getTiempo() << " minutos"<< std::endl;
 }
 
+Presion::Presion() : presionEstatica(0.0f), presionDinamica(0.0f), MedicionBase(0.0f) {} 
 Presion::Presion(float p, float q, float t) : presionEstatica(p), presionDinamica(q), MedicionBase(t) {}
 
 void Presion::serializar(std::ofstream& out) const{
@@ -41,6 +42,7 @@ void Presion::imprimir() const{
     std::cout<< "Presion estatica: " << presionEstatica << ", Presion Dinamica: " << presionDinamica << std::endl;
 }
 
+Posicion::Posicion() : latitud(0), longitud(0), altitud(0), MedicionBase(0.0f) {} 
 Posicion::Posicion(float lat, float lon, float alt, float t) : latitud(lat), longitud(lon), altitud(alt), MedicionBase(t) {}
 
 void Posicion::serializar(std::ofstream& out) const{

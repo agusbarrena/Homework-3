@@ -23,7 +23,7 @@ protected:
 
 class Presion : public MedicionBase{
 public:
-    Presion() : MedicionBase(0.0f), presionEstatica(0.0f), presionDinamica(0.0f) {}
+    Presion(); //constructor con parametros predeterminados para deserializar
     Presion(float p, float q, float t);
     float presionEstatica;//p
     float presionDinamica;//q
@@ -34,7 +34,7 @@ public:
 
 class Posicion: public MedicionBase{
 public:
-    Posicion() : MedicionBase(0.0f), latitud(0), longitud(0), altitud(0) {}
+    Posicion(); //constructor con parametros predeterminados para deserializar
     Posicion(float lat, float lon, float alt, float t);
     float latitud;
     float longitud;
@@ -46,7 +46,6 @@ public:
 
 class SaveFlightData{
 public:
-SaveFlightData() = default;
 SaveFlightData(const std::shared_ptr<Posicion>& p, const std::shared_ptr<Presion>& q);
 std::shared_ptr<Posicion> p;
 std::shared_ptr<Presion> q;
