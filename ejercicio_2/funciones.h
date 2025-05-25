@@ -33,7 +33,7 @@ Punto centro;
 float b;
 float a;
 public:
-Elipse( Punto centro, float a, float b);
+Elipse( Punto centro, float b, float a);
 Punto getCentro() const;
 float getSemiejeMenor() const;
 float getSemiejeMayor() const;

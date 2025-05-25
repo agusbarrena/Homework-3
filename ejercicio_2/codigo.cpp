@@ -37,7 +37,7 @@ void Circulo::setRadio(float value){
    radio = value;
 }
 
-Elipse::Elipse( Punto centro, float a, float b) : centro(centro), a(a), b(b) {}
+Elipse::Elipse( Punto centro, float b, float a) : centro(centro), b(b), a(a) {}
 
 Punto Elipse::getCentro() const{
    return centro;
